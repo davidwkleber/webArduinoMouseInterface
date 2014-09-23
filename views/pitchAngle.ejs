@@ -14,7 +14,7 @@
             height: 540px;
             background: url("images/Pitch_final.png") no-repeat 0 0;
             margin-bottom: 1em;
-            border: 1px solid #ccc;
+           
 			position:absolute;
 			left:330px; top:150px;
         }
@@ -153,7 +153,7 @@ $PAoutput = $('#output');
 
             PAinstance.$dispatcher
                 .on(SpriteClip.Event.ENTER_FRAME, function (e, clip) {
-					var PAcurrentAngle = PAinstance.currentFrame/10;
+					var PAcurrentAngle = (PAinstance.currentFrame-100)/10;
 					$(".PAcurrentAngle span").text(PAcurrentAngle);
                     $(".PAcurrentFrame span").text(PAinstance.currentFrame);
                 });
@@ -166,7 +166,8 @@ $PAoutput = $('#output');
 					console.log('client pitchAngle BUTTON: '+PAinstance.currentFrame);
 					
 					var posting = $.post( '/pitchAngle', { pitchAngleValue: PAinstance.currentFrame} );
-										var PAcurrentAngle = PAinstance.currentFrame/10;
+										var PAcurrentAngle = (PAinstance.currentFrame-100)/10;
+										
 					$(".PAcurrentAngle span").text(PAcurrentAngle);
                     $(".PAcurrentFrame span").text(PAinstance.currentFrame);
 					PAinstance.nextFrame();
@@ -179,7 +180,9 @@ $PAoutput = $('#output');
 					PAinstance.currentFrame -= 1;
 					console.log('client pitchAngle BUTTON: '+PAinstance.currentFrame);
 					var posting = $.post( '/pitchAngle', { pitchAngleValue: PAinstance.currentFrame } );
-										var PAcurrentAngle = PAinstance.currentFrame/10;
+										var PAcurrentAngle = (PAinstance.currentFrame-100)/10;
+										
+									
 					$(".PAcurrentAngle span").text(PAcurrentAngle);
                     $(".PAcurrentFrame span").text(PAinstance.currentFrame);
 					PAinstance.prevFrame();

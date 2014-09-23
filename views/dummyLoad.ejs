@@ -4,34 +4,34 @@
     <head>
 
         <meta charset="utf-8">
-        <title>WindSock</title>
+        <title>Dummy Load</title>
 
         <style>
 
-        .awesome-button {
+        .DLawesome-button {
             display: block;
-            width: 320px;
-            height: 540px;
-            background: url("images/Windsack_final.png") no-repeat 0 0;
+            width: 420px;
+            height: 300px;
+            background: url("images/load.png") no-repeat 0 0;
             margin-bottom: 1em;
 			position:absolute;
-			left:10px; top:150px;
+			left:500px; top:390px;
         }
-        .WScurrentFrame {
+        .DLcurrentFrame {
 			position: absolute;
-			left: 10;
-			top: 140;
+			left: 500;
+			top: 390;
 		}   
 
         </style>
 
     </head>
     <body>
-	<div class="windSpeedDiv">
- <form name="windSpeedForm" id"windSpeedForm" class="windSpeedForm" action="/windSpeed" method="post">
+	<div class="dummyLoadDiv">
+ <form name="dummyLoadForm" id"dummyLoadForm" class="dummyLoadForm" action="/dummyLoad" method="post">
 
-         <a class="awesome-button"></a>
-        <p class="WScurrentFrame">Current frame: <span>1</span></p>
+         <a class="DLawesome-button"></a>
+        <p class="DLcurrentFrame">Current frame: <span>1</span></p>
 
  	<script src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
 
@@ -44,27 +44,27 @@ var last_position = {},
 $output       = $('#output');
 
             //Instantiate and get the instance from the element's data-spriteClip property
-            var WSinstance = $(".awesome-button").spriteClip({
-                totalFrames: 160,
+            var DLinstance = $(".DLawesome-button").spriteClip({
+                totalFrames: 1,
                 frameRate: 60,
-                stops: [1, 160]
+                stops: [1, 1]
             }).data("spriteClip");
 
             //Equivalent to
-            //var instance = new SpriteClip($(".awesome-button").get(0), {
+            //var instance = new SpriteClip($(".DLawesome-button").get(0), {
             //    totalFrames: 30,
             //    frameRate: 60,
             //    stops: [1, 30]
             //})
             
-            WSinstance.$el
+            DLinstance.$el
 
                 .on("mousedown", function () {
 					console.log('mouse down');
 					mouseIsDown = "true";
 				})
 			
-			//	$(".awesome-button").on('mousemove', function (event) {
+			//	$(".DLawesome-button").on('mousemove', function (event) {
 				.on("mousemove", function (event) {
 //					console.log('mouse move');
 					if ( mouseIsDown === "true" ) {
@@ -84,16 +84,16 @@ $output       = $('#output');
 					} else if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY > 0) {
 						//up
 //						console.log('up');
-			            WSinstance.stop();
+			            DLinstance.stop();
 
-			            WSinstance.play();
+			            DLinstance.play();
 
 					} else if (Math.abs(deltaY) > Math.abs(deltaX) && deltaY < 0) {
 						//down
 //						console.log('down');
-			            WSinstance.stop();
+			            DLinstance.stop();
 
-			            WSinstance.rewind();
+			            DLinstance.rewind();
 
 					}
 					
@@ -114,19 +114,19 @@ $output       = $('#output');
 			
                 .on("mouseup", function () {
 					mouseIsDown = "false";
-                    WSinstance.stop();
+                    DLinstance.stop();
 					event.preventDefault();
-					console.log('client windSpeed: '+WSinstance.currentFrame);
-					var posting = $.post( '/windSpeed', { windSpeedValue: WSinstance.currentFrame } );
+					console.log('client dummyLoad: '+DLinstance.currentFrame);
+					var posting = $.post( '/dummyLoad', { dummyLoadValue: DLinstance.currentFrame } );
 					posting.done(function( data ) {
 						console.log('client post done ');
 					})
                 });
 
-            WSinstance.$dispatcher
+            DLinstance.$dispatcher
                 .on(SpriteClip.Event.ENTER_FRAME, function (e, clip) {
 
-                    $(".WScurrentFrame span").text(WSinstance.currentFrame);
+                    $(".DLcurrentFrame span").text(DLinstance.currentFrame);
                 });
 				
 				
